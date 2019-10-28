@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useParams
+} from "react-router-dom";
 import Nav from "./components/layout/Nav";
 
 import Home from "./components/pages/Home";
@@ -17,11 +22,27 @@ export class App extends Component {
 
     this.state = {
       questions: [
-        { id: 1, name: "Spg1", body: "Body text 1" },
-        { id: 2, name: "Spg2", body: "Body text 2" },
-        { id: 3, name: "Spg3", body: "Body text 2" },
-        { id: 4, name: "Spg4", body: "Body text 2" },
-        { id: 5, name: "Spg5", body: "Body text 2" }
+        {
+          id: 1,
+          name: "nd time giving error,during TENSORFLOW execution",
+          body: "Body text 1"
+        },
+        {
+          id: 2,
+          name: "Is there a way to add/remove module in Android.bp?",
+          body: "Body text 2"
+        },
+        {
+          id: 3,
+          name: "Primeng p-dropdown filtering suggestions problem",
+          body: "Body text 2"
+        },
+        {
+          id: 4,
+          name: "Configure CakePhp to send mail with SMTP",
+          body: "Body text 2"
+        },
+        { id: 5, name: "CSS not working", body: "Body text 2" }
       ],
       hello: "Hello World"
     };
@@ -32,7 +53,7 @@ export class App extends Component {
       <div className="App">
         <Router>
           <Nav />
-          <Switch location={this.props.location}>
+          <Switch>
             <Ask
               path="/ask"
               dataFromParent={this.state.questions}
@@ -46,6 +67,7 @@ export class App extends Component {
               exact
               path="/question/:id"
               dataFromParent={this.state.questions}
+              idFromUrl={this.props.id}
               component={Questions}
             ></Questions>
           </Switch>
