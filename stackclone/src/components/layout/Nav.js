@@ -85,11 +85,9 @@ function Nav() {
             <Link to="/">
               <li className="nav-item active">Home</li>
             </Link>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Link
-              </a>
-            </li>
+            <Link to="/about">
+              <li className="nav-item active">About</li>
+            </Link>
             <li className="nav-item">
               <a className="nav-link disabled" href="#">
                 Disabled
@@ -142,21 +140,9 @@ function Nav() {
                 Home <span className="sr-only">(current)</span>
               </li>
             </Link>
-
             <Link to="/about" className="nav-link">
-              <li className="nav-item active">
+              <li className="nav-item">
                 About <span className="sr-only">(current)</span>
-              </li>
-            </Link>
-
-            <Link to="/questions" className="nav-link">
-              <li className="nav-item active">
-                Questions <span className="sr-only">(current)</span>
-              </li>
-            </Link>
-            <Link to="/ask" className="nav-link">
-              <li className="nav-item active">
-                Ask Question <span className="sr-only">(current)</span>
               </li>
             </Link>
           </ul>

@@ -16,6 +16,6 @@ code {
   color: black;
 }
 
-.linkstyle: hover {
+.linkstyle.hover {
   color: black;
 }

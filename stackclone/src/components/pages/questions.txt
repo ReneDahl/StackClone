@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
 export class Question extends Component {
   constructor(props) {
@@ -11,11 +11,9 @@ export class Question extends Component {
     return (
       <div className="container mt-5">
         <ol>
-          {this.props.questions.map((
-            q //How do I send props from this component to question component?
-          ) => (
+          {this.props.question.map(q => (
             <li>
-              <Link to={`/question/${q.id}/${q.name}`}>{q.name}</Link>
+              <Link to={`/question/${q.id}`}>{q.name}</Link>
             </li>
           ))}
         </ol>
@@ -23,10 +21,16 @@ export class Question extends Component {
     );
   }
 }
-
-const fakePage = {};
 Question.propTypes = {
   question: PropTypes.array.isRequired
 };
 
 export default Question;
+// return this.props.question.map(q =>
+//   (
+//   <div className="container mt-2">
+//     <li>
+//       <Link to={`/questions/${q.id}`}>{q.name}</Link>
+//     </li>
+//   </div>
+//   ));
