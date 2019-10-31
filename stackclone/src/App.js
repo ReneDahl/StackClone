@@ -1,63 +1,97 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Nav from "./components/layout/Nav";
+import { Router } from "@reach/router";
 
-import Home from "./components/pages/Home";
-import Ask from "./components/pages/Ask";
-import About from "./components/pages/About";
 import Question from "./components/pages/Question";
 import Questions from "./components/pages/Questions";
+import Nav from "./components/layout/Nav";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Answers from "./components/pages/Answers";
+import Ask from "./components/pages/Ask";
+import Home from "./components/pages/Home";
 
 export class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      questions: [
+      data: [
         {
           id: 1,
-          name: "nd time giving error,during TENSORFLOW execution"
+          name: "nd time giving error,during TENSORFLOW execution",
+          answers: [
+            {
+              name:
+                "Observables are lazy so you have to subscribe to get the value.",
+              name: 5
+            },
+            { name: "You can use asyncPipe", votes: -2 },
+            {
+              name:
+                "The reason that it's undefined is that you are making an asynchronous operation",
+              votes: 3
+            }
+          ]
         },
         {
           id: 2,
-          name: "Is there a way to add/remove module in Android.bp?"
+          name: "Is there a way to add/remove module in Android.bp?",
+          answers: [
+            { name: "Answer 1", votes: 2 },
+            { name: "Answer 2", votes: 3 },
+            { name: "Answer 3", votes: 0 }
+          ]
         },
         {
           id: 3,
-          name: "Primeng p-dropdown filtering suggestions problem"
+          name: "Primeng p-dropdown filtering suggestions problem",
+          answers: [
+            { name: "Answer 1", votes: 0 },
+            { name: "Answer 2", votes: 1 }
+          ]
         },
         {
           id: 4,
-          name: "Configure CakePhp to send mail with SMTP"
+          name: "Configure CakePhp to send mail with SMTP",
+          answers: [
+            { name: "Answer 1", votes: 0 },
+            { name: "Answer 2", votes: 1 }
+          ]
         },
-        { id: 5, name: "CSS not working" }
+        {
+          id: 5,
+          name: "CSS not working",
+          answers: [
+            { name: "Answer 1", votes: 0 },
+            { name: "Answer 2", votes: 1 }
+          ]
+        }
       ]
     };
 
     this.changeDone = this.changeDone.bind(this);
   }
+  getQuestion(id) {
+    return this.state.data.find(q => q.id === Number(id));
+  }
 
   addQuestion(question) {
     const questionObject = {
       id: Math.random() * 10000000,
-      //we are adding items to the arraylist questions we can push later
-      name: question
+      name: question,
+      answers: []
     };
-
-    console.log(questionObject);
-
-    //Now we have a new state object,
-    //now I use spread syntax, so we have a copy of existing array before we add new questions to it
-
-    //We change the state of the compoent then we use setState
     this.setState({
-      questions: [...this.state.questions, questionObject]
+      data: [...this.state.data, questionObject]
     });
   }
+
+  //With answerData, we can recieve the data to the parent, from the child.
+  //We get data from question. What the user have answered
+
+  getAnswer = answerData => {
+    console.log(answerData);
+  };
 
   changeDone(index) {
     const newList = [...this.state.questions];
@@ -68,31 +102,27 @@ export class App extends Component {
   }
 
   render() {
-    const hideComponent = {
-      fontSize: "72px",
-      color: "blue"
-    };
-
     return (
       <div className="App">
+        <Nav></Nav>
+
         <Router>
-          <Nav />
-          <Route
-            exact
+          <Ask
+            path="/Ask"
+            addQuestion={question => this.addQuestion(question)}
+          ></Ask>
+
+          <Questions
             path="/"
-            render={props => (
-              <React.Fragment>
-                <Ask
-                  path="/home"
-                  addQuestion={question => this.addQuestion(question)}
-                ></Ask>
-                {/*Print all the questions to the page*/}
-                <Questions questions={this.state.questions}></Questions>
-              </React.Fragment>
-            )}
-          ></Route>
-          <Route path="/question/:id/:name" component={Question}></Route>
-          <Route path="/about" component={About}></Route>
+            data={this.state.data}
+            askQuestion={text => this.askQuestion(text)}
+          ></Questions>
+
+          <Question
+            path="/question/:id"
+            getQuestion={id => this.getQuestion(id)}
+            getAnswer={getAnswer => this.getAnswer(getAnswer)}
+          ></Question>
         </Router>
       </div>
     );

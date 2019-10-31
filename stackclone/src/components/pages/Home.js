@@ -6,16 +6,6 @@ import Ask from "./Ask";
 
 export class Home extends Component {
   render() {
-    const items = this.props.dataFromParent.map(item => (
-      <tr>
-        <td key={item.id}>
-          <Link className="linkStyle" to={`/question/${item.id}`}>
-            {item.name}
-          </Link>
-        </td>
-      </tr>
-    ));
-
     return (
       <div className="container mt-5">
         <main role="main" className="container">
@@ -31,7 +21,7 @@ export class Home extends Component {
             <div className="row">
               <div className="col-md-12">
                 <table className="table table-striped">
-                  <tbody>{items}</tbody>
+                  <tbody>dd</tbody>
                 </table>
               </div>
             </div>

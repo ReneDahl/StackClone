@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@reach/router";
 
 function Nav() {
   //Resizing the logo
@@ -140,9 +140,9 @@ function Nav() {
                 Home <span className="sr-only">(current)</span>
               </li>
             </Link>
-            <Link to="/about" className="nav-link">
+            <Link to="/Ask" className="nav-link">
               <li className="nav-item">
-                About <span className="sr-only">(current)</span>
+                Ask <span className="sr-only">(current)</span>
               </li>
             </Link>
           </ul>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export class Ask extends Component {
+export class PostQuestion extends Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,7 @@ export class Ask extends Component {
     //reference to the ask page here
 
     this.props.addQuestion(this.state.name);
-
+    window.history.back();
     e.preventDefault();
   };
 
@@ -51,4 +51,4 @@ export class Ask extends Component {
   }
 }
 
-export default Ask;
+export default PostQuestion;

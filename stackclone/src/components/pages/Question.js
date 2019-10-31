@@ -1,45 +1,41 @@
 import React, { Component } from "react";
-import Answers from "./Answers";
+import PostAnswer from "./PostAnswer";
 
-export class Questions extends Component {
+class Question extends Component {
   constructor(props) {
     super(props);
   }
 
+  getAnswer(answer) {
+    this.props.getAnswer(answer);
+  }
+
   render() {
+    const id = this.props.id;
+    const question = this.props.getQuestion(id);
+
+    const list = question.answers.map(ans => (
+      <li key={ans.id}>
+        {ans.name}- ({ans.votes})
+      </li>
+    ));
+
     return (
-      <div className="container mt-5">
-        <p>{this.props.match.params.name}</p>
-
-        <React.Fragment>
-          <h3 className="container mt-5">Answers to the question</h3>
-          <div className="container mt-5 box-answer-bg">
-            <Answers questionID={this.props}></Answers>
-          </div>
-
-          <div className="container mt-5 box-bg">
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <label>Give a answer to the question</label>
-                <textarea
-                  className="qHeight"
-                  rows="6"
-                  type="text"
-                  className="form-control"
-                  placeholder="Give a answer"
-                  onChange={this.OnchangeName}
-                ></textarea>
-              </div>
-
-              <div className="form-group">
-                <button className="btn btn-primary">Give a answer</button>
-              </div>
-            </form>
-          </div>
-        </React.Fragment>
-      </div>
+      <React.Fragment>
+        <div className="container mt-5">
+          <h1>The Question!</h1>
+          <p>{question.name}</p>
+          <h2>Answers</h2>
+          <ul>{question.answers.length === 0 ? <p>No Answers!</p> : list}</ul>
+        </div>
+        <div className="container mt-5">
+          <PostAnswer
+            postanswer={this.props.id}
+            getAnswer={answer => this.getAnswer(answer)} //
+          ></PostAnswer>
+        </div>
+      </React.Fragment>
     );
   }
 }
-
-export default Questions;
+export default Question;
