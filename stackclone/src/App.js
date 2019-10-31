@@ -84,15 +84,22 @@ export class App extends Component {
     });
   }
   postAnswer(questionID, name) {
-    const answerObject = {
-      name: name,
-      id: questionID
-    };
-    this.setState({
-      answers: [...this.state.data.find(x => x.id === questionID), answerObject]
-    });
+    const data = [...this.state.data];
 
-    //console.log(questionID, name);
+    const question = data.find(q => q.id === parseInt(questionID));
+
+    const questionIndex = data.findIndex(q => q.id === question.id);
+    question.answers = [
+      ...question.answers,
+      {
+        name,
+        id: questionID
+      }
+    ];
+
+    data[questionIndex] = question;
+
+    this.setState({ data });
   }
 
   render() {
