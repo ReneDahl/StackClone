@@ -5,29 +5,20 @@ export class PostAnswer extends Component {
     super(props);
 
     this.state = {
-      name: "",
-      votes: "",
-      questionId: this.props.postanswer
+      input: ""
     };
   }
 
-  onChangeName = e => {
+  onChange = e => {
     this.setState({
-      name: e.target.value
-    });
-  };
-  onChangeVotes = e => {
-    this.setState({
-      votes: e.target.value
+      input: e.target.value
     });
   };
 
   onSubmit = e => {
     //reference to the Question page here, how to i parse ever state into a array of elements?
-    this.props.getAnswer(
-      this.state.name + this.state.votes + this.state.questionId
-    );
 
+    this.props.postAnswer(this.props.questionID, this.state.input);
     e.preventDefault();
   };
 
@@ -40,14 +31,10 @@ export class PostAnswer extends Component {
             <div className="form-group">
               <input
                 type="text"
-                onChange={this.onChangeName}
+                onChange={this.onChange}
                 className="form-control"
               ></input>
-              <input
-                type="text"
-                onChange={this.onChangeVotes}
-                className="form-control"
-              ></input>
+
               <button className="btn btn-success">Post answer</button>
             </div>
           </form>

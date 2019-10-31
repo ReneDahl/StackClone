@@ -30,8 +30,10 @@ class Question extends Component {
         </div>
         <div className="container mt-5">
           <PostAnswer
-            postanswer={this.props.id}
-            getAnswer={answer => this.getAnswer(answer)} //
+            questionID={this.props.id}
+            postAnswer={(questionID, name) =>
+              this.props.postAnswer(questionID, name)
+            }
           ></PostAnswer>
         </div>
       </React.Fragment>

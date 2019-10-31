@@ -23,7 +23,7 @@ export class App extends Component {
             {
               name:
                 "Observables are lazy so you have to subscribe to get the value.",
-              name: 5
+              votes: 5
             },
             { name: "You can use asyncPipe", votes: -2 },
             {
@@ -68,13 +68,11 @@ export class App extends Component {
         }
       ]
     };
-
-    this.changeDone = this.changeDone.bind(this);
   }
   getQuestion(id) {
     return this.state.data.find(q => q.id === Number(id));
   }
-
+  //This work, but only able to insert into data. Not answers
   addQuestion(question) {
     const questionObject = {
       id: Math.random() * 10000000,
@@ -85,20 +83,16 @@ export class App extends Component {
       data: [...this.state.data, questionObject]
     });
   }
-
-  //With answerData, we can recieve the data to the parent, from the child.
-  //We get data from question. What the user have answered
-
-  getAnswer = answerData => {
-    console.log(answerData);
-  };
-
-  changeDone(index) {
-    const newList = [...this.state.questions];
-
+  postAnswer(questionID, name) {
+    const answerObject = {
+      name: name,
+      id: questionID
+    };
     this.setState({
-      questions: newList
+      answers: [...this.state.data.find(x => x.id === questionID), answerObject]
     });
+
+    //console.log(questionID, name);
   }
 
   render() {
@@ -121,7 +115,8 @@ export class App extends Component {
           <Question
             path="/question/:id"
             getQuestion={id => this.getQuestion(id)}
-            getAnswer={getAnswer => this.getAnswer(getAnswer)}
+            //Handle vote need
+            postAnswer={(questionID, name) => this.postAnswer(questionID, name)}
           ></Question>
         </Router>
       </div>
