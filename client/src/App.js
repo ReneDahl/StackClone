@@ -83,12 +83,17 @@ export class App extends Component {
       data: [...this.state.data, questionObject]
     });
   }
+
   postAnswer(questionID, name) {
+    //Spread syntax, we are making of the exixing array
     const data = [...this.state.data];
 
+    //We find the question, where the user want to give a answer
     const question = data.find(q => q.id === parseInt(questionID));
 
+    //Find the index of the question
     const questionIndex = data.findIndex(q => q.id === question.id);
+    //Insert values to the nested array
     question.answers = [
       ...question.answers,
       {
@@ -96,9 +101,9 @@ export class App extends Component {
         id: questionID
       }
     ];
-
+    //assign the valee of data to question
     data[questionIndex] = question;
-
+    //Setting the state
     this.setState({ data });
   }
 

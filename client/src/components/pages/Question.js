@@ -14,8 +14,8 @@ class Question extends Component {
     const id = this.props.id;
     const question = this.props.getQuestion(id);
 
-    const list = question.answers.map(ans => (
-      <li key={ans.id}>
+    const list = question.answers.map((ans, index) => (
+      <li key={index}>
         {ans.name}- ({ans.votes})
       </li>
     ));
