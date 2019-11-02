@@ -69,6 +69,11 @@ export class App extends Component {
       ]
     };
   }
+
+  componentDidMount() {
+    //We gonna load the api from here
+    fetch("http://localhost:8080/questions/").then(res => console.log(res));
+  }
   getQuestion(id) {
     return this.state.data.find(q => q.id === Number(id));
   }
