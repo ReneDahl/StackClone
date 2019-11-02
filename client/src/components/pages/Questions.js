@@ -14,8 +14,8 @@ export class Questions extends Component {
           <h1>Questions</h1>
           <ol>
             {this.props.data.map(q => (
-              <li key={q.id}>
-                <Link to={`/question/${q.id}`}>{q.name}</Link>
+              <li key={q._id}>
+                <Link to={`/question/${q._id}`}>{q.name}</Link>
               </li>
             ))}
           </ol>

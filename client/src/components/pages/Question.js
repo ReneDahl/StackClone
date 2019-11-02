@@ -11,8 +11,9 @@ class Question extends Component {
   }
 
   render() {
-    const id = this.props.id;
-    const question = this.props.getQuestion(id);
+    const _id = this.props._id;
+    const question = this.props.getQuestion(_id);
+    console.log(question);
 
     const list = question.answers.map((ans, index) => (
       <li key={index}>
@@ -26,11 +27,11 @@ class Question extends Component {
           <h1>The Question!</h1>
           <p>{question.name}</p>
           <h2>Answers</h2>
-          <ul>{question.answers.length === 0 ? <p>No Answers!</p> : list}</ul>
+          {<ul>{question.answers.length === 0 ? <p>No Answers!</p> : list}</ul>}
         </div>
         <div className="container mt-5">
           <PostAnswer
-            questionID={this.props.id}
+            questionID={this.props._id}
             postAnswer={(questionID, name) =>
               this.props.postAnswer(questionID, name)
             }
