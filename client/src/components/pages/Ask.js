@@ -19,7 +19,7 @@ export class PostQuestion extends Component {
 
   OnchangeName = e => {
     this.setState({
-      name: [e.target.value]
+      name: e.target.value
     });
   };
 

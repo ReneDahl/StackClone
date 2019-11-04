@@ -8,7 +8,6 @@ import Nav from "./components/layout/Nav";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Ask from "./components/pages/Ask";
-import Home from "./components/pages/Home";
 
 export class App extends Component {
   constructor(props) {
@@ -68,7 +67,6 @@ export class App extends Component {
         // }
       ]
     };
-    console.log(this.state.data);
   }
 
   getDataFromApi() {
@@ -82,42 +80,90 @@ export class App extends Component {
     this.getDataFromApi();
   }
   getQuestion(_id) {
-    return this.state.data.find(q => q._id === Number(_id));
+    return this.state.data.find(q => q._id === Number(_id)); // if you use staic array use Number()
   }
+
   //This work, but only able to insert into data. Not answers
   addQuestion(question) {
-    const questionObject = {
-      _id: Math.random() * 10000000,
-      name: question,
-      answers: []
-    };
-    this.setState({
-      data: [...this.state.data, questionObject]
-    });
+    // const questionObject = {
+    //   _id: Math.random() * 10000000,
+    //   name: question,
+    //   answers: []
+    // };
+    // this.setState({
+    //   data: [...this.state.data, questionObject]
+    // });
+
+    this.postQuestion(question);
   }
 
   postAnswer(questionID, name) {
-    //Spread syntax, we are making of the exixing array
-    const data = [...this.state.data];
+    //  console.log(questionID, name);
+    //Post request here, to the backend serve
 
-    //We find the question, where the user want to give a answer
+    const data = [...this.state.data];
     const question = data.find(q => q._id === parseInt(questionID));
 
-    //Find the index of the question
     const questionIndex = data.findIndex(q => q._id === question._id);
-    //Insert values to the nested array
-    question.answers = [
-      ...question.answers,
-      {
-        name,
-        _id: questionID
-      }
-    ];
-    //assign the valee of data to question
+
+    fetch("http://localhost:8080/questions/post", {
+      method: "POST",
+      body: JSON.stringify(
+        (question.answers = [
+          ...question.answers,
+          {
+            name,
+            votes: 1
+          }
+        ])
+      )
+    });
+
     data[questionIndex] = question;
+
+    console.log(question);
     //Setting the state
     this.setState({ data });
+
+    // fetch("http://localhost:8080/questions/:id/answers", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     name: name,
+    //     answers: []
+    //   }),
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8"
+    //   }
+    // })
+    //   .then(response => response.json())
+    //   .then(json => {
+    //     console.log("Result of posting a new question:");
+    //     console.log(json);
+    //     // this.getData();
+    //   });
   }
+
+  // // postAnswer(questionID, name) {
+  //   //--------------------------------------------------------------
+  //   //Spread syntax, we are making of the exixing array
+  //   const data = [...this.state.data];
+  //   //We find the question, where the user want to give a answer
+  //   const question = data.find(q => q._id === parseInt(questionID));
+  //   //Find the index of the question
+  //   const questionIndex = data.findIndex(q => q._id === question._id);
+  //   //Insert values to the nested array
+  //   question.answers = [
+  //     ...question.answers,
+  //     {
+  //       name,
+  //       _id: questionID
+  //     }
+  //   ];
+  //   //assign the valee of data to question
+  //   data[questionIndex] = question;
+  //   //Setting the state
+  //   this.setState({ data });
+  // }
 
   render() {
     return (

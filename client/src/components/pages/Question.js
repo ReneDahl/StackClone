@@ -13,6 +13,7 @@ class Question extends Component {
   render() {
     const _id = this.props._id;
     const question = this.props.getQuestion(_id);
+
     console.log(question);
 
     const list = question.answers.map((ans, index) => (
