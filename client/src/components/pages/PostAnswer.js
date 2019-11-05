@@ -34,8 +34,10 @@ export class PostAnswer extends Component {
                 onChange={this.onChange}
                 className="form-control"
               ></input>
-
-              <button className="btn btn-success">Post answer</button>
+              <button className="btn btn-success">Post answer</button>-
+              <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+              </button>
             </div>
           </form>
         </div>

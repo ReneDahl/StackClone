@@ -14,58 +14,7 @@ export class App extends Component {
     super(props);
 
     this.state = {
-      data: [
-        // {
-        //   _id: 1,
-        //   name: "nd time giving error,during TENSORFLOW execution",
-        //   answers: [
-        //     {
-        //       name:
-        //         "Observables are lazy so you have to subscribe to get the value.",
-        //       votes: 5
-        //     },
-        //     { name: "You can use asyncPipe", votes: -2 },
-        //     {
-        //       name:
-        //         "The reason that it's undefined is that you are making an asynchronous operation",
-        //       votes: 3
-        //     }
-        //   ]
-        // },
-        // {
-        //   _id: 2,
-        //   name: "Is there a way to add/remove module in Android.bp?",
-        //   answers: [
-        //     { name: "Answer 1", votes: 2 },
-        //     { name: "Answer 2", votes: 3 },
-        //     { name: "Answer 3", votes: 0 }
-        //   ]
-        // },
-        // {
-        //   _id: 3,
-        //   name: "Primeng p-dropdown filtering suggestions problem",
-        //   answers: [
-        //     { name: "Answer 1", votes: 0 },
-        //     { name: "Answer 2", votes: 1 }
-        //   ]
-        // },
-        // {
-        //   _id: 4,
-        //   name: "Configure CakePhp to send mail with SMTP",
-        //   answers: [
-        //     { name: "Answer 1", votes: 0 },
-        //     { name: "Answer 2", votes: 1 }
-        //   ]
-        // },
-        // {
-        //   _id: 5,
-        //   name: "CSS not working",
-        //   answers: [
-        //     { name: "Answer 1", votes: 0 },
-        //     { name: "Answer 2", votes: 1 }
-        //   ]
-        // }
-      ]
+      data: []
     };
   }
 
@@ -80,90 +29,70 @@ export class App extends Component {
     this.getDataFromApi();
   }
   getQuestion(_id) {
-    return this.state.data.find(q => q._id === Number(_id)); // if you use staic array use Number()
+    return this.state.data.find(q => q._id === _id); // if you use staic array use Number()
   }
 
-  //This work, but only able to insert into data. Not answers
+  //can only post question, if we get it from the api
   addQuestion(question) {
-    // const questionObject = {
-    //   _id: Math.random() * 10000000,
-    //   name: question,
-    //   answers: []
-    // };
-    // this.setState({
-    //   data: [...this.state.data, questionObject]
-    // });
-
     this.postQuestion(question);
   }
 
+  postQuestion(question) {
+    //Post request here, to the backend server
+
+    fetch("http://localhost:8080/questions/post", {
+      method: "POST",
+      body: JSON.stringify({
+        name: question
+        //answers: []
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log("Result of posting a new question:");
+        console.log(json);
+        this.getDataFromApi();
+      });
+  }
   postAnswer(questionID, name) {
-    //  console.log(questionID, name);
+    // console.log(questionID, name);
     //Post request here, to the backend serve
 
     const data = [...this.state.data];
-    const question = data.find(q => q._id === parseInt(questionID));
+
+    const question = data.find(q => q._id === questionID);
+    console.log(question);
 
     const questionIndex = data.findIndex(q => q._id === question._id);
 
-    fetch("http://localhost:8080/questions/post", {
+    fetch("http://localhost:8080/questions/postAnswer", {
       method: "POST",
       body: JSON.stringify(
         (question.answers = [
           ...question.answers,
           {
-            name,
+            name: name,
             votes: 1
           }
         ])
-      )
-    });
+      ),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+      });
 
     data[questionIndex] = question;
 
-    console.log(question);
     //Setting the state
     this.setState({ data });
-
-    // fetch("http://localhost:8080/questions/:id/answers", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     name: name,
-    //     answers: []
-    //   }),
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8"
-    //   }
-    // })
-    //   .then(response => response.json())
-    //   .then(json => {
-    //     console.log("Result of posting a new question:");
-    //     console.log(json);
-    //     // this.getData();
-    //   });
   }
-
-  // // postAnswer(questionID, name) {
-  //   //--------------------------------------------------------------
-  //   //Spread syntax, we are making of the exixing array
-  //   const data = [...this.state.data];
-  //   //We find the question, where the user want to give a answer
-  //   const question = data.find(q => q._id === parseInt(questionID));
-  //   //Find the index of the question
-  //   const questionIndex = data.findIndex(q => q._id === question._id);
-  //   //Insert values to the nested array
-  //   question.answers = [
-  //     ...question.answers,
-  //     {
-  //       name,
-  //       _id: questionID
-  //     }
-  //   ];
-  //   //assign the valee of data to question
-  //   data[questionIndex] = question;
-  //   //Setting the state
-  //   this.setState({ data });
-  // }
 
   render() {
     return (
