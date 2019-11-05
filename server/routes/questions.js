@@ -32,13 +32,15 @@ server.route("/postAnswer").post((req, res) => {
   const name = req.body.name;
   const votes = req.body.votes;
 
-  const newQuestion = new Question({ name, votes });
+  Question.findById(req.params.id)
+    .then(question.answer.push(name))
+    .save();
 
-  newQuestion
-    .save()
+  //what to do from here?? New to save it to the database
 
-    .then(() => res.json("answer to question added!"))
-    .catch(err => res.status(400).json("Error!!!: " + err));
+  console.log(name, votes);
+
+  const newAnswer = new Question({ name, votes });
 });
 
 module.exports = server;

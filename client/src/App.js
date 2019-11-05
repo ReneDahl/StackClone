@@ -73,6 +73,7 @@ export class App extends Component {
         (question.answers = [
           ...question.answers,
           {
+            questionID: questionID,
             name: name,
             votes: 0
           }
@@ -89,10 +90,6 @@ export class App extends Component {
       });
 
     data[questionIndex] = question;
-
-    if (data === undefined || data.length == 0) {
-      console.log("oooh noooo");
-    }
 
     //Setting the state
     this.setState({ data });
