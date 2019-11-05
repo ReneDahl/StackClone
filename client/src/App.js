@@ -40,7 +40,7 @@ export class App extends Component {
   postQuestion(question) {
     //Post request here, to the backend server
 
-    fetch("http://stackclonetest.herokuapp.com/questions/post", {
+    fetch("http://localhost:8080/questions/post", {
       method: "POST",
       body: JSON.stringify({
         name: question,
@@ -67,7 +67,7 @@ export class App extends Component {
 
     const questionIndex = data.findIndex(q => q._id === question._id);
 
-    fetch("http://stackclonetest.herokuapp.com/questions/postAnswer", {
+    fetch("http://localhost:8080/questions/postAnswer", {
       method: "POST",
       body: JSON.stringify(
         (question.answers = [
