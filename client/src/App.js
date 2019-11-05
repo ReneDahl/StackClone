@@ -43,8 +43,8 @@ export class App extends Component {
     fetch("http://localhost:8080/questions/post", {
       method: "POST",
       body: JSON.stringify({
-        name: question
-        //answers: []
+        name: question,
+        answers: []
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
@@ -64,7 +64,6 @@ export class App extends Component {
     const data = [...this.state.data];
 
     const question = data.find(q => q._id === questionID);
-    console.log(question);
 
     const questionIndex = data.findIndex(q => q._id === question._id);
 
@@ -75,7 +74,7 @@ export class App extends Component {
           ...question.answers,
           {
             name: name,
-            votes: 1
+            votes: 0
           }
         ])
       ),
@@ -85,10 +84,15 @@ export class App extends Component {
     })
       .then(response => response.json())
       .then(json => {
+        console.log(data);
         console.log(json);
       });
 
     data[questionIndex] = question;
+
+    if (data === undefined || data.length == 0) {
+      console.log("oooh noooo");
+    }
 
     //Setting the state
     this.setState({ data });

@@ -20,6 +20,13 @@ server.route("/post").post((req, res) => {
     .catch(err => res.status(400).json("Error!!!: " + err));
 });
 
+//Search question by id
+server.route("/:questionID").get((req, res) => {
+  Question.findById(req.params.id)
+    .then(question => res.json(question))
+    .catch(err => res.status(400).json("Error question not found" + err));
+});
+
 //Post method to save a answer
 server.route("/postAnswer").post((req, res) => {
   const name = req.body.name;
