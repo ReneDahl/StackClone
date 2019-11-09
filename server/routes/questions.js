@@ -11,7 +11,6 @@ server.route("/").get((req, res) => {
 //Post method to get a question
 server.route("/post").post((req, res) => {
   const name = req.body.name;
-
   const newQuestion = new Question({ name });
 
   newQuestion
@@ -21,26 +20,32 @@ server.route("/post").post((req, res) => {
 });
 
 //Search question by id
-server.route("/:questionID").get((req, res) => {
+server.route("/:id/").get((req, res) => {
   Question.findById(req.params.id)
     .then(question => res.json(question))
     .catch(err => res.status(400).json("Error question not found" + err));
 });
 
 //Post method to save a answer
-server.route("/postAnswer").post((req, res) => {
-  const name = req.body.name;
-  const votes = req.body.votes;
+server.route("/:id/answers").post((req, res) => {
+  Question.findById(req.params.id).then(question => {
+    const name = req.body.name;
+    //const votes = req.body.votes;
 
-  Question.findById(req.params.id)
-    .then(question.answer.push(name))
-    .save();
+    //this works
+    const answer = new Question({
+      name: name
+    });
 
-  //what to do from here?? New to save it to the database
+    question.answers.push(answer);
 
-  console.log(name, votes);
-
-  const newAnswer = new Question({ name, votes });
+    question
+      .save() // save to database
+      .then(() => res.json("answer added!"))
+      .catch(err => res.status(400).json("Error: " + err));
+  });
 });
+
+//Update vote here
 
 module.exports = server;

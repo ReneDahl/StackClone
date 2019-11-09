@@ -58,41 +58,19 @@ export class App extends Component {
       });
   }
   postAnswer(questionID, name) {
-    // console.log(questionID, name);
-    //Post request here, to the backend serve
-
-    const data = [...this.state.data];
-
-    const question = data.find(q => q._id === questionID);
-
-    const questionIndex = data.findIndex(q => q._id === question._id);
-
-    fetch("http://localhost:8080/questions/postAnswer", {
+    fetch("http://localhost:8080/questions/" + questionID + "/answers", {
       method: "POST",
-      body: JSON.stringify(
-        (question.answers = [
-          ...question.answers,
-          {
-            questionID: questionID,
-            name: name,
-            votes: 0
-          }
-        ])
-      ),
+      body: JSON.stringify({
+        name: name
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       }
     })
       .then(response => response.json())
       .then(json => {
-        console.log(data);
         console.log(json);
       });
-
-    data[questionIndex] = question;
-
-    //Setting the state
-    this.setState({ data });
   }
 
   render() {
