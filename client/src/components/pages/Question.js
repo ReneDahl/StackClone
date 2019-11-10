@@ -4,7 +4,7 @@ import PostAnswer from "./PostAnswer";
 class Question extends Component {
   constructor(props) {
     super(props);
-    this.onVote = this.onVote.bind(this);
+    this.onVote = this.onVote.bind(this); // not done
   }
 
   getAnswer(answer) {
@@ -14,21 +14,38 @@ class Question extends Component {
   onVote = e => {};
 
   render() {
+    let titleQuestion = "";
+    let listOfAnswers = "";
+
     const _id = this.props._id;
     const question = this.props.getQuestion(_id);
 
-    const list = question.answers.map((ans, index) => (
-      <li key={index}>
-        {ans.name}- ({ans.votes})
-        <button
-          onClick={this.onVote}
-          value={ans.votes}
-          className="btn btn-primary"
-        >
-          Vote
-        </button>
-      </li>
-    ));
+    if (question != "" || null) {
+      titleQuestion = question.name;
+
+      console.log(titleQuestion);
+    } else {
+      //check for error
+      console.log("Undifined");
+    }
+
+    if (question.answer != "" || null) {
+      listOfAnswers = question.answers.map((ans, index) => (
+        <li key={index}>
+          {ans.name} - {ans.votes}
+          <button
+            onClick={this.onVote}
+            value={ans.votes}
+            className="btn btn-primary ml-2"
+          >
+            Vote
+          </button>
+        </li>
+      ));
+    } else {
+      //check for error
+      console.log("Undifined");
+    }
 
     return (
       <React.Fragment>
@@ -36,7 +53,15 @@ class Question extends Component {
           <h1>The Question!</h1>
           <p>{question.name}</p>
           <h2>Answers</h2>
-          {<ul>{question.answers.length === 0 ? <p>No Answers!</p> : list}</ul>}
+          {
+            <ul>
+              {question.answers.length === 0 ? (
+                <p>No Answers!</p>
+              ) : (
+                listOfAnswers
+              )}
+            </ul>
+          }
         </div>
         <div className="container mt-5">
           <PostAnswer

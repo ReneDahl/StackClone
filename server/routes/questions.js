@@ -34,7 +34,8 @@ server.route("/:id/answers").post((req, res) => {
 
     //this works
     const answer = new Question({
-      name: name
+      name: name,
+      votes: 0
     });
 
     question.answers.push(answer);

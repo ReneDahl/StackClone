@@ -21,8 +21,10 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
+//defining routes, in this case we have our questions route
 const questionsRouter = require("./routes/questions");
 
+//Here we have question route, called questions
 app.use("/questions", questionsRouter);
 
 app.listen(port, () => {

@@ -29,7 +29,7 @@ export class App extends Component {
     this.getDataFromApi();
   }
   getQuestion(_id) {
-    return this.state.data.find(q => q._id === _id); // if you use staic array use Number()
+    return this.state.data.find(q => q._id === _id);
   }
 
   //can only post question, if we get it from the api
@@ -61,7 +61,8 @@ export class App extends Component {
     fetch("http://localhost:8080/questions/" + questionID + "/answers", {
       method: "POST",
       body: JSON.stringify({
-        name: name
+        name: name,
+        votes: 0
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
@@ -70,6 +71,7 @@ export class App extends Component {
       .then(response => response.json())
       .then(json => {
         console.log(json);
+        this.getDataFromApi();
       });
   }
 
