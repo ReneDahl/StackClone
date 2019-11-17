@@ -2,7 +2,7 @@ const server = require("express").Router();
 let Question = require("../models/question.model");
 
 //get method, takes data from the array
-server.route("/").get((req, res) => {
+server.route("*").get((req, res) => {
   Question.find()
     .then(question => res.json(question)) // <-- change to data here, if you want to test with the staic array
     .catch(err => res.status(400).json("Error: " + err));
