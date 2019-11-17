@@ -11,7 +11,9 @@ class Question extends Component {
     this.props.getAnswer(answer);
   }
 
-  onVote = e => {};
+  onVote(event) {
+    console.log(this.props._id);
+  }
 
   render() {
     let titleQuestion = "";
@@ -20,7 +22,7 @@ class Question extends Component {
     const _id = this.props._id;
     const question = this.props.getQuestion(_id);
 
-    if (question != "" || null) {
+    if (question !== "" || null) {
       titleQuestion = question.name;
 
       console.log(titleQuestion);
@@ -29,16 +31,15 @@ class Question extends Component {
       console.log("Undifined");
     }
 
-    if (question.answer != "" || null) {
+    if (question.answer !== "" || null) {
       listOfAnswers = question.answers.map((ans, index) => (
         <li key={index}>
           {ans.name} - {ans.votes}
           <button
-            onClick={this.onVote}
-            value={ans.votes}
-            className="btn btn-primary ml-2"
+            className="btn btn-info mb-1"
+            onClick={() => console.log(this.props._id + "-" + ans._id)}
           >
-            Vote
+            Vote up
           </button>
         </li>
       ));
