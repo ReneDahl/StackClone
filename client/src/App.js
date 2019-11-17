@@ -19,7 +19,7 @@ export class App extends Component {
   }
 
   getDataFromApi() {
-    fetch("http://localhost:8080/questions/").then(res =>
+    fetch("http://stackclonedk.herokuapp.com/questions/").then(res =>
       res.json().then(data => this.setState({ data }))
     );
   }
@@ -40,7 +40,7 @@ export class App extends Component {
   postQuestion(question) {
     //Post request here, to the backend server
 
-    fetch("http://localhost:8080/questions/post", {
+    fetch("https://stackclonedk.herokuapp.com/questions/post", {
       method: "POST",
       body: JSON.stringify({
         name: question,
@@ -58,16 +58,19 @@ export class App extends Component {
       });
   }
   postAnswer(questionID, name) {
-    fetch("http://localhost:8080/questions/" + questionID + "/answers", {
-      method: "POST",
-      body: JSON.stringify({
-        name: name,
-        votes: 0
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
+    fetch(
+      "https://stackclonedk.herokuapp.com/questions/" + questionID + "/answers",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          votes: 0
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
       }
-    })
+    )
       .then(response => response.json())
       .then(json => {
         console.log(json);
