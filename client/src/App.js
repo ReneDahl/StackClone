@@ -18,8 +18,8 @@ export class App extends Component {
     };
   }
 
-  getDataFromApi() {
-    fetch("https://stackclonedk.herokuapp.com/questions/").then(res =>
+  async getDataFromApi() {
+    await fetch("https://stackclonedk.herokuapp.com/questions/").then(res =>
       res.json().then(data => this.setState({ data }))
     );
   }
