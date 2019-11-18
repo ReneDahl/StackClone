@@ -10,13 +10,16 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static("../client/build"));
-const uri = process.env.ATLAS_URI;
+app.use(express.static("../client/build")); //a stadic path, so react can serve the build..
+
+const uri = process.env.ATLAS_URI; //Using the enviorment file, thats connect to the database
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
 });
+
+//Making connecting and open mongodb database
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");

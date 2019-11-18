@@ -19,7 +19,7 @@ export class App extends Component {
   }
 
   getDataFromApi() {
-    fetch("http://stackclonedk.herokuapp.com/questions/").then(res =>
+    fetch("https://stackclonedk.herokuapp.com/questions/").then(res =>
       res.json().then(data => this.setState({ data }))
     );
   }
