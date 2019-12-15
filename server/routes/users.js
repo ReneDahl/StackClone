@@ -21,6 +21,9 @@ server.route("/create").post((req, res) => {
     console.error(msg);
     res.status(401).json({ msg: msg });
     return null; //Inportent if it not return null here, it will keep running.
+  } else {
+    let msg = "uups";
+    console.error(msg);
   }
 
   const newUser = new User({ username });
