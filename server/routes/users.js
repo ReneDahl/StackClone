@@ -23,12 +23,12 @@ server.route("/create").post((req, res) => {
     return null; //Inportent if it not return null here, it will keep running.
   }
 
-  const user = { username: username };
+  //   const user = { username: username };
 
-  user
-    .save()
-    .then(() => res.json("user added!"))
-    .catch(err => res.status(400).json("Error!!!: " + err));
+  //   user
+  //     .save()
+  //     .then(() => res.json("user added!"))
+  //     .catch(err => res.status(400).json("Error!!!: " + err));
 });
 
 module.exports = server;
