@@ -20,7 +20,8 @@ server.route("/create").post((req, res) => {
     let msg = "Username or password missing!";
     console.error(msg);
     res.status(401).json({ msg: msg });
-    return null; //Inportent if it not return null here, it will keep running.
+
+    return; //Inportent if it not return null here, it will keep running.
   } else {
     let msg = "uups";
     console.error(msg);
