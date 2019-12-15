@@ -145,6 +145,12 @@ function Nav() {
                 Ask <span className="sr-only">(current)</span>
               </li>
             </Link>
+
+            <Link to="/Login" className="nav-link">
+              <li className="nav-item">
+                Login <span className="sr-only">(current)</span>
+              </li>
+            </Link>
           </ul>
         </div>
       </nav>

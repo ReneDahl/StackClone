@@ -8,6 +8,7 @@ import Nav from "./components/layout/Nav";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Ask from "./components/pages/Ask";
+import Login from "./components/pages/Login";
 
 export class App extends Component {
   constructor(props) {
@@ -88,6 +89,8 @@ export class App extends Component {
             path="/Ask"
             addQuestion={question => this.addQuestion(question)}
           ></Ask>
+
+          <Login path="/Login"></Login>
 
           <Questions
             path="/"

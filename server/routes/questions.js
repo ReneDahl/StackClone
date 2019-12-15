@@ -49,10 +49,8 @@ server.route("/:id/answers").post((req, res) => {
 
 //Update vote here
 //Post method to save a answer
-server.route("/:id/answers/:answerId/vote").put((req, res) => {
-  Question.findById(req.params.id).then(question => {
-    console.log("using put method");
-  });
+server.route("/:id/answers/:answerId/votes").put((req, res) => {
+  console.log("dds");
 });
 
 module.exports = server;

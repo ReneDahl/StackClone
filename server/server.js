@@ -27,9 +27,11 @@ connection.once("open", () => {
 
 //defining routes, in this case we have our questions route
 const questionsRouter = require("./routes/questions");
+const usersRouter = require("./routes/users");
 
 //Here we have question route, called questions
 app.use("/questions", questionsRouter);
+app.use("/users", usersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
