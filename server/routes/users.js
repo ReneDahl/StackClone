@@ -15,19 +15,20 @@ server.route("/create").post((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  const newUser = new User({ username });
-
-  if (!newUser) {
+  //if username or password is empty, it will display the msg
+  if (!username || !password) {
     let msg = "Username or password missing!";
     console.error(msg);
     res.status(401).json({ msg: msg });
     return;
-  }
+  } else {
+    const newUser = new User({ username });
 
-  newUser
-    .save()
-    .then(() => res.json("user added!"))
-    .catch(err => res.status(400).json("Error!!!: " + err));
+    newUser
+      .save()
+      .then(() => res.json("user added!"))
+      .catch(err => res.status(400).json("Error!!!: " + err));
+  }
 });
 
 module.exports = server;
