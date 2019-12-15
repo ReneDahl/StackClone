@@ -20,16 +20,12 @@ server.route("/create").post((req, res) => {
     let msg = "Username or password missing!";
     console.error(msg);
     res.status(401).json({ msg: msg });
-
-    return; //Inportent if it not return null here, it will keep running.
-  } else {
-    let msg = "uups";
-    console.error(msg);
+    return null; //Inportent if it not return null here, it will keep running.
   }
 
-  const newUser = new User({ username });
+  const user = { username: username };
 
-  newUser
+  user
     .save()
     .then(() => res.json("user added!"))
     .catch(err => res.status(400).json("Error!!!: " + err));
