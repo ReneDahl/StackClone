@@ -23,9 +23,9 @@ server.route("/create").post((req, res) => {
     return null; //Inportent if it not return null here, it will keep running.
   }
 
-  const user = new User({ username });
+  const newUser = new User({ username });
 
-  user
+  newUser
     .save()
     .then(() => res.json("user added!"))
     .catch(err => res.status(400).json("Error!!!: " + err));
