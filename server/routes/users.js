@@ -23,7 +23,7 @@ server.route("/create").post((req, res) => {
     return null; //Inportent if it not return null here, it will keep running.
   }
 
-  const user = { username: username, password: password };
+  const user = new User({ username });
 
   user
     .save()
