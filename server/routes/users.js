@@ -18,11 +18,9 @@ server.route("/create").post((req, res) => {
   const newUser = new User({ username });
 
   newUser
-    //   .save()
+    .save()
     .then(() => res.json("user added!"))
     .catch(err => res.status(400).json("Error!!!: " + err));
-
-  console.log("Hej med dig");
 });
 
 module.exports = server;
