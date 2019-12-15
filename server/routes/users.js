@@ -16,23 +16,19 @@ server.route("/create").post((req, res) => {
   const password = req.body.password;
 
   //if username or password is empty, it will display the msg
-  if (!username === "" || !password === "") {
+  if (!username) {
     let msg = "Username or password missing!";
     console.error(msg);
     res.status(401).json({ msg: msg });
-    return; //Inportent if it not return null here, it will keep running.
-  } else {
-    let msg = "haha!";
-    console.error(msg);
-    res.status(200).json({ msg: msg });
+    return null; //Inportent if it not return null here, it will keep running.
   }
 
-  //   const user = { username: username };
+  const user = { username: username };
 
-  //   user
-  //     .save()
-  //     .then(() => res.json("user added!"))
-  //     .catch(err => res.status(400).json("Error!!!: " + err));
+  user
+    .save()
+    .then(() => res.json("user added!"))
+    .catch(err => res.status(400).json("Error!!!: " + err));
 });
 
 module.exports = server;
