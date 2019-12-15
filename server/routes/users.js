@@ -14,16 +14,15 @@ server.route("/").get((req, res) => {
 server.route("/create").post((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-
+  const newUser = new User({ username });
   //if username or password is empty, it will display the msg
+
   if (!username || !password) {
     let msg = "Username or password missing!";
     console.error(msg);
     res.status(401).json({ msg: msg });
     return; //Inportent if it not return null here, it will keep running.
   }
-
-  const newUser = new User({ username });
 
   newUser
     .save()
