@@ -24,6 +24,7 @@ server.route("/create").post((req, res) => {
   } else {
     let msg = "haha!";
     console.error(msg);
+    res.status(200).json({ msg: msg });
   }
 
   //   const user = { username: username };
